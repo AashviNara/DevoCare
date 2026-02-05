@@ -125,7 +125,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 320px;
+  height: 180px;
 }
 
 .logo-container {
@@ -134,7 +134,7 @@ a {
 }
 
 .logo-img {
-  height: 300px;
+  height: 150px;
   width: auto;
   object-fit: contain;
 }
@@ -165,7 +165,7 @@ a {
 
 /* Hero Section */
 .hero {
-  padding-top: 360px;
+  padding-top: 220px;
   padding-bottom: 80px;
   background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
   position: relative;
