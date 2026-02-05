@@ -205,6 +205,15 @@ a {
   justify-content: center;
 }
 
+.hero-img-main {
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  object-fit: cover;
+}
+
 .hero-cta {
   display: flex;
   gap: var(--spacing-md);
