@@ -2,6 +2,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from '../../App';
 import { Menu, X, Sun, Moon, Heart } from 'lucide-react';
+import logoImg from '/logo.png';
 
 const navItems = [
   { name: 'Home', path: '/' },
@@ -29,20 +30,21 @@ export default function Layout() {
   return (
     <div className="min-h-screen bg-white dark:bg-dark-bg">
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/90 dark:bg-dark-bg/90 backdrop-blur-lg shadow-sm' : 'bg-transparent'
-      }`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 dark:bg-dark-bg/90 backdrop-blur-lg shadow-sm' : 'bg-transparent'
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
-                <span className="text-white font-bold text-lg">G</span>
-              </div>
-              <span className="text-xl font-bold text-slate-900 dark:text-white">
-                Go<span className="text-primary-600">EMR</span>
-              </span>
+              <img src={logoImg} style={{ width: '120px' }} alt="DevoCare Logo" />
             </Link>
+
+            {/* Back to Website */}
+            <div className="hidden lg:flex items-center ml-4">
+              <a href="../index.html" className="flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-800 transition-colors">
+                <i className="pi pi-arrow-left"></i> Back to Website
+              </a>
+            </div>
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-1">
@@ -65,7 +67,7 @@ export default function Layout() {
               >
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-              
+
               <Link to="/" className="hidden sm:flex btn-primary">
                 Get Started
               </Link>
@@ -88,11 +90,10 @@ export default function Layout() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`block px-4 py-3 rounded-lg text-base font-medium ${
-                    location.pathname === item.path
-                      ? 'text-primary-600 bg-primary-50 dark:bg-primary-900/20'
-                      : 'text-slate-600 dark:text-slate-300'
-                  }`}
+                  className={`block px-4 py-3 rounded-lg text-base font-medium ${location.pathname === item.path
+                    ? 'text-primary-600 bg-primary-50 dark:bg-primary-900/20'
+                    : 'text-slate-600 dark:text-slate-300'
+                    }`}
                 >
                   {item.name}
                 </Link>
@@ -119,13 +120,10 @@ export default function Layout() {
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
               <Link to="/" className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
-                  <span className="text-white font-bold">G</span>
-                </div>
-                <span className="text-lg font-bold text-slate-900 dark:text-white">GoEMR</span>
+                <img src={logoImg} style={{ width: '100px' }} alt="DevoCare Logo" />
               </Link>
               <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                Modern EMR for healthcare providers.
+                Modern EMR by DevoCare for healthcare providers.
               </p>
               <div className="flex gap-2">
                 <span className="badge-success">HIPAA</span>
@@ -165,7 +163,7 @@ export default function Layout() {
           <div className="pt-8 border-t border-slate-200 dark:border-dark-border">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-sm text-slate-500">
-                © 2026 GoEMR Technologies. All rights reserved.
+                © 2026 DevoCare Technologies. All rights reserved.
               </p>
               <p className="text-sm text-slate-500 flex items-center gap-1">
                 Inspired by{' '}

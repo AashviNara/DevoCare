@@ -9,17 +9,19 @@ import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../data-access';
 
 @Component({
-    selector: 'app-register',
-    standalone: true,
-    imports: [CommonModule, FormsModule, RouterLink, CardModule, InputTextModule, PasswordModule, ButtonModule],
-    template: `
+  selector: 'app-register',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink, CardModule, InputTextModule, PasswordModule, ButtonModule],
+  template: `
     <div class="register-container">
+      <a href="../../../index.html" class="back-link">
+        <i class="pi pi-arrow-left"></i> Back to Website
+      </a>
       <p-card styleClass="register-card">
         <ng-template pTemplate="header">
           <div class="register-header">
             <div class="logo">
-              <i class="pi pi-heart-fill"></i>
-              <span>GoHealth</span>
+              <img src="logo.png" style="width: 120px;" alt="DevoCare Logo">
             </div>
             <h1>Create Account</h1>
             <p>Join the patient portal to manage your health</p>
@@ -72,17 +74,12 @@ import { AuthService } from '../data-access';
       </p-card>
     </div>
   `,
-    styles: [`
-    .register-container {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--teal-600) 0%, var(--teal-800) 100%);
-      padding: 1rem;
-    }
+  styles: [`
+    .register-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--teal-600) 0%, var(--teal-800) 100%); padding: 1rem; position: relative; }
     :host ::ng-deep .register-card { width: 100%; max-width: 500px; }
     .register-header { text-align: center; padding: 2rem 2rem 1rem; }
+    .back-link { position: fixed; top: 1.5rem; left: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--teal-600); text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: all 0.2s; z-index: 1000; padding: 0.5rem 1rem; background: rgba(255, 255, 255, 0.9); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .back-link:hover { transform: translateX(-5px); color: var(--teal-800); background: white; }
     .logo { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 700; color: var(--teal-600); margin-bottom: 1rem; }
     .logo i { font-size: 2rem; }
     .register-header h1 { margin: 0 0 0.5rem; font-size: 1.5rem; }
@@ -100,30 +97,30 @@ import { AuthService } from '../data-access';
   `]
 })
 export class RegisterComponent {
-    readonly authService = inject(AuthService);
+  readonly authService = inject(AuthService);
 
-    firstName = '';
-    lastName = '';
-    email = '';
-    password = '';
-    errorMessage = signal<string | null>(null);
+  firstName = '';
+  lastName = '';
+  email = '';
+  password = '';
+  errorMessage = signal<string | null>(null);
 
-    async register(): Promise<void> {
-        if (!this.email || !this.password || !this.firstName || !this.lastName) {
-            this.errorMessage.set('All fields are required');
-            return;
-        }
-
-        this.errorMessage.set(null);
-        const result = await this.authService.register({
-            email: this.email,
-            password: this.password,
-            firstName: this.firstName,
-            lastName: this.lastName
-        });
-
-        if (!result.success) {
-            this.errorMessage.set(result.error || 'Registration failed');
-        }
+  async register(): Promise<void> {
+    if (!this.email || !this.password || !this.firstName || !this.lastName) {
+      this.errorMessage.set('All fields are required');
+      return;
     }
+
+    this.errorMessage.set(null);
+    const result = await this.authService.register({
+      email: this.email,
+      password: this.password,
+      firstName: this.firstName,
+      lastName: this.lastName
+    });
+
+    if (!result.success) {
+      this.errorMessage.set(result.error || 'Registration failed');
+    }
+  }
 }

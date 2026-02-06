@@ -23,15 +23,17 @@ interface NavItem {
       <!-- Sidebar -->
       <aside class="sidebar">
         <div class="sidebar-header">
-          <div class="logo" [class.collapsed]="sidebarCollapsed()">
-            <i class="pi pi-heart-fill"></i>
-            @if (!sidebarCollapsed()) {
-              <span>GoHealth</span>
-            }
+          <div class="logo-container" [class.collapsed]="sidebarCollapsed()">
+            <img src="logo.png" style="width: 120px;" alt="DevoCare Logo">
           </div>
-          <button pButton [icon]="sidebarCollapsed() ? 'pi pi-angle-right' : 'pi pi-angle-left'" 
-                  class="p-button-text p-button-rounded collapse-btn" 
-                  (click)="toggleSidebar()"></button>
+          <div class="header-actions">
+            <a href="../index.html" pButton icon="pi pi-home" 
+               class="p-button-text p-button-rounded home-btn" 
+               pTooltip="Back to Website" tooltipPosition="bottom"></a>
+            <button pButton [icon]="sidebarCollapsed() ? 'pi pi-angle-right' : 'pi pi-angle-left'" 
+                    class="p-button-text p-button-rounded collapse-btn" 
+                    (click)="toggleSidebar()"></button>
+          </div>
         </div>
 
         <nav class="sidebar-nav">
@@ -99,17 +101,32 @@ interface NavItem {
       border-bottom: 1px solid var(--surface-border);
     }
 
-    .logo {
+    .logo-container {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--teal-600);
+      transition: all 0.2s ease;
+      overflow: hidden;
+    }
+
+    .logo-container.collapsed {
+      width: 0;
+      opacity: 0;
+      padding: 0;
     }
 
     .logo.collapsed {
       justify-content: center;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .home-btn {
+      color: var(--teal-600) !important;
     }
 
     .logo i {
@@ -250,7 +267,7 @@ interface NavItem {
 })
 export class ShellComponent {
   private authService = inject(AuthService);
-  
+
   sidebarCollapsed = signal(false);
 
   navItems: NavItem[] = [

@@ -172,14 +172,21 @@ body {
     align-items: center;
 }
 
-.logo-text {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--color-primary);
+.logo-container {
     display: flex;
     align-items: center;
-    gap: 12px;
-    text-decoration: none;
+}
+
+.logo-img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+}
+
+.nav-links {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
 }
 
 .nav-links a {
@@ -208,6 +215,16 @@ body {
 
 .nav-links a:hover {
     color: var(--color-primary);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-dark);
+    cursor: pointer;
+    margin-left: 2rem;
 }
 
 /* About Hero */
@@ -600,5 +617,14 @@ body {
 
     .product-grid {
         grid-template-columns: 1fr;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        /* Hide desktop links on mobile until we implement the mobile menu */
     }
 }

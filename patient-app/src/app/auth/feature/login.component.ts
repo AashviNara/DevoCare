@@ -15,12 +15,14 @@ import { AuthService } from '../data-access';
   imports: [CommonModule, FormsModule, RouterLink, CardModule, InputTextModule, PasswordModule, ButtonModule, CheckboxModule],
   template: `
     <div class="login-container">
+      <a href="../../../index.html" class="back-link">
+        <i class="pi pi-arrow-left"></i> Back to Website
+      </a>
       <p-card styleClass="login-card">
         <ng-template pTemplate="header">
           <div class="login-header">
             <div class="logo">
-              <i class="pi pi-heart-fill"></i>
-              <span>GoHealth</span>
+              <img src="logo.png" style="width: 120px;" alt="DevoCare Logo">
             </div>
             <h1>Patient Portal</h1>
             <p>Sign in to access your health information</p>
@@ -73,16 +75,11 @@ import { AuthService } from '../data-access';
     </div>
   `,
   styles: [`
-    .login-container {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--teal-600) 0%, var(--teal-800) 100%);
-      padding: 1rem;
-    }
+    .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--teal-600) 0%, var(--teal-800) 100%); padding: 1rem; position: relative; }
     :host ::ng-deep .login-card { width: 100%; max-width: 420px; }
     .login-header { text-align: center; padding: 2rem 2rem 1rem; }
+    .back-link { position: fixed; top: 1.5rem; left: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--teal-600); text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: all 0.2s; z-index: 1000; padding: 0.5rem 1rem; background: rgba(255, 255, 255, 0.9); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .back-link:hover { transform: translateX(-5px); color: var(--teal-800); background: white; }
     .logo { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 700; color: var(--teal-600); margin-bottom: 1rem; }
     .logo i { font-size: 2rem; }
     .login-header h1 { margin: 0 0 0.5rem; font-size: 1.5rem; }
