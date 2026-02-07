@@ -402,16 +402,16 @@
     display: block;
     font-weight: 600;
     color: var(--color-dark);
-    margin-bottom: 10px;
-    font-size: 1rem;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
 }
 
 .form-control {
     width: 100%;
-    padding: 15px 20px;
+    padding: 10px 15px;
     border: 2px solid #e2e8f0;
     border-radius: 12px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
     font-family: inherit;
 }
@@ -420,6 +420,27 @@
     outline: none;
     border-color: var(--color-primary);
     box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1);
+}
+
+/* NHA Approval Badge */
+.nha-approval {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0 10px;
+}
+
+.nha-approval span {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 600;
+}
+
+.nha-logo {
+    height: 35px;
+    width: auto;
+    object-fit: contain;
 }
 
 .checkbox-group {
@@ -454,12 +475,12 @@
 
 .btn-submit {
     width: 100%;
-    padding: 16px 30px;
+    padding: 12px 30px;
     background: var(--color-primary);
     color: white;
     border: none;
     border-radius: 12px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
