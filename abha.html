@@ -98,6 +98,23 @@
         </div>
     </section>
 
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <h2 class="section-title">Learn About ABHA</h2>
+            <p style="text-align: center; max-width: 700px; margin: -30px auto 50px; font-size: 1.1rem; color: #666;">
+                Watch this official video to understand how ABHA transforms digital healthcare in India</p>
+            <div class="video-container" id="videoContainer">
+                <iframe id="abhaVideo" width="100%" height="500"
+                    src="https://www.youtube.com/embed/dw6qSD8AaxQ?enablejsapi=1&mute=1"
+                    title="ABHA Health ID Explanation" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
     <!-- How it Works -->
     <section class="creation-steps">
         <div class="container">
@@ -184,6 +201,58 @@
         </div>
     </section>
 
+    <!-- ABHA Registration Form -->
+    <section class="abha-registration">
+        <div class="container">
+            <div class="registration-card">
+                <h2 class="section-title">Generate Your ABHA Number</h2>
+                <p style="text-align: center; max-width: 600px; margin: -20px auto 40px; color: #666;">Create your
+                    digital health identity in minutes</p>
+
+                <form id="abhaForm" class="abha-form">
+                    <div class="form-group">
+                        <label for="registrationType">Choose Registration Method</label>
+                        <select id="registrationType" class="form-control" required>
+                            <option value="">Select Method</option>
+                            <option value="phone">Phone Number</option>
+                            <option value="aadhaar">Aadhaar Number</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="phoneGroup" style="display: none;">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="tel" id="phoneNumber" class="form-control"
+                            placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" maxlength="10">
+                    </div>
+
+                    <div class="form-group" id="aadhaarGroup" style="display: none;">
+                        <label for="aadhaarNumber">Aadhaar Number</label>
+                        <input type="text" id="aadhaarNumber" class="form-control"
+                            placeholder="Enter 12-digit Aadhaar number" pattern="[0-9]{12}" maxlength="12">
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="termsAgree" required>
+                            <span>I agree with the <a href="https://abdm.gov.in/" target="_blank">terms and
+                                    conditions</a></span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submitBtn" disabled>
+                        <i class="fas fa-arrow-right"></i> View your ABHA
+                    </button>
+
+                    <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: #888;">
+                        Don't have ABHA linked mobile number?
+                        <a href="https://abha.abdm.gov.in/abha/v3/register" target="_blank"
+                            style="color: var(--color-primary); font-weight: 600;">Use Aadhaar number</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <!-- Global CTA -->
     <section class="abha-cta">
         <div class="container">
@@ -257,6 +326,102 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+        // YouTube Video Autoplay on Hover
+        const videoContainer = document.getElementById('videoContainer');
+        const videoIframe = document.getElementById('abhaVideo');
+        let player;
+
+        // Load YouTube IFrame API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // Initialize player when API is ready
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('abhaVideo', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Play video on hover
+            videoContainer.addEventListener('mouseenter', function () {
+                player.playVideo();
+            });
+
+            // Pause video when mouse leaves
+            videoContainer.addEventListener('mouseleave', function () {
+                player.pauseVideo();
+            });
+        }
+
+        // ABHA Form Functionality
+        const registrationType = document.getElementById('registrationType');
+        const phoneGroup = document.getElementById('phoneGroup');
+        const aadhaarGroup = document.getElementById('aadhaarGroup');
+        const phoneNumber = document.getElementById('phoneNumber');
+        const aadhaarNumber = document.getElementById('aadhaarNumber');
+        const termsAgree = document.getElementById('termsAgree');
+        const submitBtn = document.getElementById('submitBtn');
+        const abhaForm = document.getElementById('abhaForm');
+
+        // Show/hide input fields based on registration type
+        registrationType.addEventListener('change', function () {
+            const type = this.value;
+
+            if (type === 'phone') {
+                phoneGroup.style.display = 'block';
+                aadhaarGroup.style.display = 'none';
+                phoneNumber.required = true;
+                aadhaarNumber.required = false;
+                aadhaarNumber.value = '';
+            } else if (type === 'aadhaar') {
+                phoneGroup.style.display = 'none';
+                aadhaarGroup.style.display = 'block';
+                phoneNumber.required = false;
+                aadhaarNumber.required = true;
+                phoneNumber.value = '';
+            } else {
+                phoneGroup.style.display = 'none';
+                aadhaarGroup.style.display = 'none';
+                phoneNumber.required = false;
+                aadhaarNumber.required = false;
+            }
+
+            validateForm();
+        });
+
+        // Enable/disable submit button based on checkbox
+        termsAgree.addEventListener('change', validateForm);
+        phoneNumber.addEventListener('input', validateForm);
+        aadhaarNumber.addEventListener('input', validateForm);
+
+        function validateForm() {
+            const type = registrationType.value;
+            const termsChecked = termsAgree.checked;
+            let inputValid = false;
+
+            if (type === 'phone') {
+                inputValid = phoneNumber.value.length === 10 && /^[0-9]{10}$/.test(phoneNumber.value);
+            } else if (type === 'aadhaar') {
+                inputValid = aadhaarNumber.value.length === 12 && /^[0-9]{12}$/.test(aadhaarNumber.value);
+            }
+
+            submitBtn.disabled = !(termsChecked && inputValid && type);
+        }
+
+        // Handle form submission
+        abhaForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Redirect to official ABHA registration portal
+            window.open('https://abha.abdm.gov.in/abha/v3/register', '_blank');
+        });
+    </script>
 </body>
 
 </html>
